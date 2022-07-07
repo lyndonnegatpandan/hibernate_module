@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContactInformation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Model</a> &gt; <a href="index.source.html" class="el_package">com.test.hibernate_modules</a> &gt; <span class="el_source">ContactInformation.java</span></div><h1>ContactInformation.java</h1><pre class="source lang-java linenums">package com.test.hibernate_modules;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import java.util.*;
+
+
+@Entity
+@Table(name=&quot;contact_information&quot;)
+public class ContactInformation{
+
+	@Id
+	@Column(name=&quot;contact_id&quot;)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Column(name=&quot;mobile_num&quot;)
+	private String mobileNumber;
+
+	@ManyToOne
+	@JoinColumn(name=&quot;person_id&quot;, insertable=true, updatable=true)
+	private Person person;
+
+	public ContactInformation(){
+<span class="nc" id="L30">		super();</span>
+<span class="nc" id="L31">	}</span>
+
+	public ContactInformation(String mobileNumber, Person person){
+<span class="nc" id="L34">		super();</span>
+<span class="nc" id="L35">		this.mobileNumber = mobileNumber;</span>
+<span class="nc" id="L36">		this.person = person;</span>
+<span class="nc" id="L37">	}</span>
+
+	public long getId(){
+<span class="nc" id="L40">		return this.id;</span>
+	}
+
+	public void setId(long id){
+<span class="nc" id="L44">		this.id = id;</span>
+<span class="nc" id="L45">	}</span>
+
+	public Person getPerson(){
+<span class="nc" id="L48">		return this.person;</span>
+	}
+
+	public void setPerson(Person person){
+<span class="nc" id="L52">		this.person = person;</span>
+<span class="nc" id="L53">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

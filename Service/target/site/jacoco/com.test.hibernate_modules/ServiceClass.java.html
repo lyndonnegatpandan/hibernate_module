@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServiceClass.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Service</a> &gt; <a href="index.source.html" class="el_package">com.test.hibernate_modules</a> &gt; <span class="el_source">ServiceClass.java</span></div><h1>ServiceClass.java</h1><pre class="source lang-java linenums">package com.test.hibernate_modules;
+import java.util.*;
+import java.io.*;
+
+import java.sql.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+<span class="nc" id="L11">public class ServiceClass{</span>
+	public void createPerson(Person person){
+<span class="nc" id="L13">		Transaction transaction = null;</span>
+<span class="nc" id="L14">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+		try{
+<span class="nc" id="L16">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L17">			session.save(person);</span>
+<span class="nc" id="L18">			transaction.commit();</span>
+<span class="nc" id="L19">			System.out.println(&quot;Person Created&quot;);</span>
+<span class="nc" id="L20">		}catch(Exception e){</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L22">				transaction.rollback();</span>
+			}
+<span class="nc" id="L24">		}</span>
+<span class="nc" id="L25">		session.close();</span>
+<span class="nc" id="L26">	}</span>
+
+	public void updatePerson(long id, String firstName){
+<span class="nc" id="L29">		Transaction transaction = null;</span>
+<span class="nc" id="L30">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+<span class="nc" id="L31">		Person person = session.get(Person.class, id);</span>
+		try{
+<span class="nc" id="L33">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L34">			person.setFirstName(firstName);</span>
+<span class="nc" id="L35">			session.update(person);</span>
+<span class="nc" id="L36">			transaction.commit();</span>
+<span class="nc" id="L37">			System.out.println(&quot;Person Updated&quot;);</span>
+<span class="nc" id="L38">		}catch(Exception e){</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L40">				transaction.rollback();</span>
+			}
+<span class="nc" id="L42">		}</span>
+<span class="nc" id="L43">		session.close();</span>
+<span class="nc" id="L44">	}</span>
+
+	public Person getPersonId(long id){
+<span class="nc" id="L47">		Transaction transaction = null;</span>
+<span class="nc" id="L48">		Person person = null;</span>
+<span class="nc" id="L49">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+		try{
+<span class="nc" id="L51">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L52">			person = session.get(Person.class, id);</span>
+<span class="nc" id="L53">			transaction.commit();</span>
+			
+<span class="nc" id="L55">		}catch(Exception e){</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L57">				transaction.rollback();</span>
+			}
+<span class="nc" id="L59">		}</span>
+<span class="nc" id="L60">		return person;</span>
+	}
+
+	
+
+	public void deletePerson(long id){
+<span class="nc" id="L66">		Transaction transaction = null;</span>
+<span class="nc" id="L67">		Person person = null;</span>
+<span class="nc" id="L68">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+		try{
+<span class="nc" id="L70">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L71">			person = session.get(Person.class, id);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">			if(person != null){</span>
+<span class="nc" id="L73">				session.delete(person);</span>
+<span class="nc" id="L74">				System.out.println(&quot;Person Deleted&quot;);</span>
+			}
+<span class="nc" id="L76">			transaction.commit();</span>
+<span class="nc" id="L77">		}catch(Exception e){</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L79">				transaction.rollback();</span>
+			}
+<span class="nc" id="L81">		}</span>
+<span class="nc" id="L82">		session.close();</span>
+		
+<span class="nc" id="L84">	}</span>
+
+	public void saveRole(Role role){
+<span class="nc" id="L87">		Transaction transaction = null;</span>
+<span class="nc" id="L88">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+		try{
+<span class="nc" id="L90">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L91">			session.save(role);</span>
+<span class="nc" id="L92">			transaction.commit();</span>
+			
+<span class="nc" id="L94">		}catch(Exception e){</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L96">				transaction.rollback();</span>
+			}
+<span class="nc" id="L98">		}</span>
+<span class="nc" id="L99">		session.close();</span>
+<span class="nc" id="L100">	}</span>
+
+	public void updateRole(long id, String role_update){
+<span class="nc" id="L103">		Transaction transaction = null;</span>
+<span class="nc" id="L104">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+<span class="nc" id="L105">		Role role = session.get(Role.class, id);</span>
+		try{
+<span class="nc" id="L107">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L108">			role.setRole(role_update);</span>
+<span class="nc" id="L109">			session.update(role);</span>
+<span class="nc" id="L110">			transaction.commit();</span>
+			//System.out.println(&quot;Person Updated&quot;);
+<span class="nc" id="L112">		}catch(Exception e){</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L114">				transaction.rollback();</span>
+			}
+<span class="nc" id="L116">		}</span>
+<span class="nc" id="L117">		session.close();</span>
+<span class="nc" id="L118">	}</span>
+
+
+	public void deleteRole(long id){
+<span class="nc" id="L122">		Transaction transaction = null;</span>
+<span class="nc" id="L123">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+<span class="nc" id="L124">		Role role = session.get(Role.class, id);</span>
+		
+		try{
+<span class="nc" id="L127">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L128">			Set&lt;Person&gt; roleSet = role.getPerson();</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">			for(Person person : roleSet){</span>
+<span class="nc" id="L130">				person.getRoles().remove(role);</span>
+<span class="nc" id="L131">				session.update(person);</span>
+<span class="nc" id="L132">			}</span>
+<span class="nc" id="L133">			session.delete(role);</span>
+<span class="nc" id="L134">			transaction.commit();</span>
+<span class="nc" id="L135">		}catch(Exception e){</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L137">				transaction.rollback();</span>
+			}
+<span class="nc" id="L139">		}</span>
+<span class="nc" id="L140">		session.close();</span>
+		
+<span class="nc" id="L142">	}</span>
+
+	public Role getRoleId(long id){
+<span class="nc" id="L145">		Transaction transaction = null;</span>
+<span class="nc" id="L146">		Role role = null;</span>
+<span class="nc" id="L147">		Session session = HibernateUtils.getSessionFactory().openSession();</span>
+		try{
+<span class="nc" id="L149">			transaction = session.beginTransaction();</span>
+<span class="nc" id="L150">			role = session.get(Role.class, id);</span>
+<span class="nc" id="L151">			transaction.commit();</span>
+			
+<span class="nc" id="L153">		}catch(Exception e){</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">			if(transaction != null){</span>
+<span class="nc" id="L155">				transaction.rollback();</span>
+			}
+<span class="nc" id="L157">		}</span>
+<span class="nc" id="L158">		return role;</span>
+	}
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

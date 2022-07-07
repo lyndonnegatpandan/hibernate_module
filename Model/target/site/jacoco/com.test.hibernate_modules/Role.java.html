@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Role.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Model</a> &gt; <a href="index.source.html" class="el_package">com.test.hibernate_modules</a> &gt; <span class="el_source">Role.java</span></div><h1>Role.java</h1><pre class="source lang-java linenums">package com.test.hibernate_modules;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import java.util.*;
+
+@Entity 
+@Table(name=&quot;role&quot;)	
+public class Role{
+	@Id
+	@Column(name = &quot;role_id&quot;)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long role_id;
+
+	@Column(name=&quot;role&quot;)
+	private String role;
+
+
+	
+<span class="nc" id="L26">	@ManyToMany(mappedBy=&quot;roles&quot;, cascade = {CascadeType.PERSIST, CascadeType.MERGE})</span>
+	private Set &lt; Person &gt; persons = new HashSet&lt;&gt;();
+
+
+	public Role(){
+<span class="nc" id="L31">		super();</span>
+<span class="nc" id="L32">	}</span>
+
+	public Role(String role){
+<span class="nc" id="L35">		super();</span>
+<span class="nc" id="L36">		this.role = role;</span>
+		
+<span class="nc" id="L38">	}</span>
+
+	public long getId(){
+<span class="nc" id="L41">		return role_id;</span>
+	}
+
+	public String getRole(){
+<span class="nc" id="L45">		return role;</span>
+	}
+
+
+	public void setRole(String role){
+<span class="nc" id="L50">		this.role = role;</span>
+<span class="nc" id="L51">	}</span>
+
+	public void setRoleId(long role_id){
+<span class="nc" id="L54">		this.role_id = role_id;</span>
+<span class="nc" id="L55">	}</span>
+
+	
+
+	public Set&lt;Person&gt; getPerson(){
+<span class="nc" id="L60">		return persons;</span>
+	}
+
+	public void setPerson(Set&lt;Person&gt; persons){
+<span class="nc" id="L64">		this.persons = persons;</span>
+<span class="nc" id="L65">	}</span>
+
+	public void addPerson(Person person){
+<span class="nc" id="L68">		this.persons.add(person);</span>
+<span class="nc" id="L69">	}</span>
+	public void removePerson(Person person){
+<span class="nc" id="L71">		this.persons.remove(person);</span>
+<span class="nc" id="L72">	}</span>
+
+	@Override
+	public String toString(){
+<span class="nc" id="L76">		return &quot;Role = &quot; + this.role;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
